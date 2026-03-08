@@ -1,0 +1,28 @@
+{
+    "last_updated": "2026-03-08 10:56:32",
+    "total_balance": -187.63,
+    "jimmy_loans": 100.0,
+    "transactions": [
+        {
+            "Date": "2026-03-08",
+            "Description": "Jimmy personal loan to SSS (RBC 4207)",
+            "Amount": 100.0,
+            "Category": "Loan",
+            "Note": "Internal record"
+        },
+        {
+            "Date": "2026-03-02",
+            "Description": "RBC Account Fee (RBC 4207)",
+            "Amount": -6.0,
+            "Category": "Bank Fee",
+            "Note": "Monthly fee"
+        },
+        {
+            "Date": "2026-01-28",
+            "Description": "Ownr Incorporation (Alberta)",
+            "Amount": -281.63,
+            "Category": "Incorporation",
+            "Note": "Paid by MasterCard 5646; Total $581.63 - $300 RBC Credit; Jimmy personal loan"
+        }
+    ]
+}
