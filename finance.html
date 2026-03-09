@@ -67,7 +67,7 @@
                 const list = document.getElementById('transaction-list');
                 list.innerHTML = '';
 
-                data.transactions.reverse().forEach(tx => {
+                data.transactions.forEach(tx => {
                     const div = document.createElement('div');
                     div.className = 'p-4 flex justify-between items-center';
                     
