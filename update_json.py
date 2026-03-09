@@ -12,8 +12,10 @@ def csv_to_json():
         return
 
     transactions = []
-    total_balance = 0.0
+    total_revenue = 0.0
     jimmy_loans = 0.0
+    anson_loans = 0.0
+    rbc_balance = 94.0 # Base balance provided by Jimmy
 
     try:
         with open(csv_path, mode='r', encoding='utf-8') as f:
@@ -26,15 +28,23 @@ def csv_to_json():
                 
                 row['Amount'] = amount
                 transactions.append(row)
-                total_balance += amount
+                
+                # Revenue is typically positive income entries
+                if amount > 0 and 'loan' not in row['Description'].lower():
+                    total_revenue += amount
                 
                 if 'jimmy personal loan' in row['Description'].lower():
                     jimmy_loans += amount
+                
+                if 'anson personal loan' in row['Description'].lower():
+                    anson_loans += amount
 
         data = {
             "last_updated": datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
-            "total_balance": round(total_balance, 2),
+            "total_revenue": round(total_revenue, 2),
+            "rbc_balance": round(rbc_balance, 2),
             "jimmy_loans": round(jimmy_loans, 2),
+            "anson_loans": round(anson_loans, 2),
             "transactions": transactions
         }
         
