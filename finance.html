@@ -160,7 +160,7 @@
                         <td class="p-3 text-slate-600 whitespace-nowrap">${tx.Date}</td>
                         <td class="p-3 text-slate-800">
                             <div>${tx.Description}</div>
-                            ${tx.Receipt_Ref ? `<div class="text-[10px] text-blue-500 mt-1"><i class="fa-solid fa-paperclip mr-1"></i>${tx.Receipt_Ref}</div>` : ''}
+                            ${tx.Receipt_Ref ? `<a href="receipts/${tx.Receipt_Ref}" target="_blank" class="inline-block text-[10px] text-blue-500 hover:text-blue-700 hover:underline mt-1"><i class="fa-solid fa-paperclip mr-1"></i>${tx.Receipt_Ref}</a>` : ''}
                         </td>
                         <td class="p-3"><span class="px-2 py-1 bg-slate-100 text-slate-600 rounded text-xs">${tx.Category}</span></td>
                         <td class="p-3 text-right text-slate-500">${formatMoney(tx.Subtotal)}</td>
