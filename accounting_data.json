@@ -1,30 +1,48 @@
 {
-    "last_updated": "2026-03-08 17:55:41",
+    "last_updated": "2026-03-08 18:02:48",
     "total_revenue": 0.0,
+    "total_expenses": 273.42,
+    "net_income": -273.42,
+    "gst_recoverable": 14.21,
     "rbc_balance": 94.0,
-    "jimmy_loans": 381.63,
-    "anson_loans": 0.0,
+    "due_to_jimmy": 381.63,
+    "due_to_anson": 0.0,
     "transactions": [
         {
+            "Txn_ID": "SSS-0003",
             "Date": "2026-03-08",
-            "Description": "Jimmy personal loan to SSS (RBC 4207)",
-            "Amount": 100.0,
-            "Category": "Loan",
-            "Note": "Internal record"
+            "Description": "Jimmy Capital Injection",
+            "Category": "Transfer",
+            "Subtotal": 100.0,
+            "GST_HST": 0.0,
+            "Total": 100.0,
+            "Paid_By": "Jimmy_Personal",
+            "Receipt_Ref": "",
+            "Note": "Transfer to RBC 4207"
         },
         {
+            "Txn_ID": "SSS-0002",
             "Date": "2026-03-02",
-            "Description": "RBC Account Fee (RBC 4207)",
-            "Amount": -6.0,
+            "Description": "RBC Account Fee",
             "Category": "Bank Fee",
+            "Subtotal": 6.0,
+            "GST_HST": 0.0,
+            "Total": 6.0,
+            "Paid_By": "RBC_4207",
+            "Receipt_Ref": "",
             "Note": "Monthly fee"
         },
         {
+            "Txn_ID": "SSS-0001",
             "Date": "2026-01-28",
             "Description": "Ownr Incorporation (Alberta)",
-            "Amount": -281.63,
             "Category": "Incorporation",
-            "Note": "Paid by MasterCard 5646; Total $581.63 - $300 RBC Credit; Jimmy personal loan"
+            "Subtotal": 267.42,
+            "GST_HST": 14.21,
+            "Total": 281.63,
+            "Paid_By": "Jimmy_Personal",
+            "Receipt_Ref": "ownr-receipt-2026-01-28.pdf",
+            "Note": "Net of $300 RBC Credit. Original Subtotal 567.42"
         }
     ]
 }

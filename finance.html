@@ -3,91 +3,179 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SSS Finance Tracker</title>
+    <title>SSS Enterprise ERP</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+        .enterprise-card { background: white; border: 1px solid #e5e7eb; border-radius: 0.5rem; box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); }
+    </style>
 </head>
-<body class="bg-gray-100 min-h-screen">
-    <div class="max-w-md mx-auto p-4">
-        <!-- Header -->
-        <header class="flex justify-between items-center mb-6 pt-4">
-            <h1 class="text-2xl font-bold text-gray-800">SSS 財務狀況</h1>
-            <div class="bg-blue-600 text-white p-2 rounded-lg">
-                <i class="fa-solid fa-bolt"></i>
+<body class="bg-slate-50 min-h-screen text-slate-800 pb-12">
+    <!-- Top Nav -->
+    <nav class="bg-indigo-900 text-white shadow-md">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <i class="fa-solid fa-chart-line text-indigo-400"></i>
+                <span class="font-bold tracking-wide">SSS Financial Dashboard</span>
             </div>
-        </header>
+            <div class="text-xs text-indigo-200" id="update-time">Syncing...</div>
+        </div>
+    </nav>
 
-        <!-- Summary Cards -->
-        <div class="grid grid-cols-2 gap-4 mb-4">
-            <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-200">
-                <p class="text-xs text-gray-500 uppercase font-bold">Revenue (CAD)</p>
-                <p id="total-revenue" class="text-xl font-bold text-gray-900">$0.00</p>
+    <div class="max-w-6xl mx-auto px-4 mt-8">
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <!-- P&L Section -->
+            <div class="enterprise-card p-5">
+                <h2 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-4 border-b pb-2"><i class="fa-solid fa-file-invoice-dollar mr-2"></i>Income Statement (P&L)</h2>
+                <div class="space-y-4">
+                    <div class="flex justify-between items-center">
+                        <span class="text-slate-600">Revenue</span>
+                        <span id="total-revenue" class="font-semibold text-emerald-600">$0.00</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-slate-600">Operating Expenses (Net)</span>
+                        <span id="total-expenses" class="font-semibold text-rose-600">$0.00</span>
+                    </div>
+                    <div class="flex justify-between items-center pt-3 border-t border-slate-100">
+                        <span class="font-bold text-slate-800">Net Income</span>
+                        <span id="net-income" class="font-bold text-lg">$0.00</span>
+                    </div>
+                </div>
             </div>
-            <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-200">
-                <p class="text-xs text-gray-500 uppercase font-bold">RBC (4207)</p>
-                <p id="rbc-balance" class="text-xl font-bold text-blue-600">$94.00</p>
+
+            <!-- Balance Sheet Section -->
+            <div class="enterprise-card p-5">
+                <h2 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-4 border-b pb-2"><i class="fa-solid fa-scale-balanced mr-2"></i>Balance Sheet</h2>
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <h3 class="text-xs text-slate-400 font-semibold mb-2">ASSETS</h3>
+                        <div class="mb-2">
+                            <div class="text-[10px] text-slate-500 uppercase">RBC Checking (4207)</div>
+                            <div id="rbc-balance" class="font-bold text-indigo-700 text-lg">$0.00</div>
+                        </div>
+                        <div>
+                            <div class="text-[10px] text-slate-500 uppercase">GST Recoverable (ITC)</div>
+                            <div id="gst-recoverable" class="font-bold text-emerald-600 text-lg">$0.00</div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-xs text-slate-400 font-semibold mb-2">LIABILITIES</h3>
+                        <div class="mb-2">
+                            <div class="text-[10px] text-slate-500 uppercase">Due to Jimmy (Shareholder)</div>
+                            <div id="jimmy-loans" class="font-bold text-amber-600 text-lg">$0.00</div>
+                        </div>
+                        <div>
+                            <div class="text-[10px] text-slate-500 uppercase">Due to Anson (Shareholder)</div>
+                            <div id="anson-loans" class="font-bold text-amber-600 text-lg">$0.00</div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="grid grid-cols-2 gap-4 mb-6">
-            <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-200">
-                <p class="text-xs text-gray-500 uppercase font-bold">欠 Jimmy (CAD)</p>
-                <p id="jimmy-loans" class="text-xl font-bold text-red-600">$0.00</p>
-            </div>
-            <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-200">
-                <p class="text-xs text-gray-500 uppercase font-bold">欠 Anson (CAD)</p>
-                <p id="anson-loans" class="text-xl font-bold text-orange-500">$0.00</p>
-            </div>
-        </div>
 
-        <!-- Transactions -->
-        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
-            <div class="p-4 border-b border-gray-100 flex justify-between items-center">
-                <h2 class="font-bold text-gray-800">最近交易</h2>
-                <span id="update-time" class="text-[10px] text-gray-400">更新於: --</span>
+        <!-- Ledger / Transaction Table -->
+        <div class="enterprise-card overflow-hidden">
+            <div class="p-4 border-b border-slate-200 bg-slate-50 flex justify-between items-center">
+                <h2 class="font-bold text-slate-800"><i class="fa-solid fa-book-journal-whills mr-2 text-indigo-500"></i>General Ledger</h2>
             </div>
-            <div id="transaction-list" class="divide-y divide-gray-50">
-                <!-- Transactions will be injected here -->
-                <div class="p-8 text-center text-gray-400">載入中...</div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse min-w-[800px]">
+                    <thead>
+                        <tr class="bg-slate-100 text-slate-500 text-xs uppercase tracking-wider">
+                            <th class="p-3 font-semibold">Txn ID</th>
+                            <th class="p-3 font-semibold">Date</th>
+                            <th class="p-3 font-semibold">Description</th>
+                            <th class="p-3 font-semibold">Category</th>
+                            <th class="p-3 font-semibold text-right">Subtotal</th>
+                            <th class="p-3 font-semibold text-right">GST</th>
+                            <th class="p-3 font-semibold text-right">Total</th>
+                            <th class="p-3 font-semibold text-center">Paid By</th>
+                        </tr>
+                    </thead>
+                    <tbody id="transaction-list" class="text-sm divide-y divide-slate-100">
+                        <tr><td colspan="8" class="p-8 text-center text-slate-400">Loading ledger data...</td></tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
 
     <script>
+        const formatMoney = (num) => {
+            const isNegative = num < 0;
+            const absoluteVal = Math.abs(num);
+            const formatted = '$' + absoluteVal.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+            return isNegative ? '-' + formatted : formatted;
+        };
+
         async function loadData() {
             try {
                 const response = await fetch('accounting_data.json?t=' + Date.now());
                 const data = await response.json();
                 
-                document.getElementById('total-revenue').textContent = '$' + data.total_revenue.toLocaleString(undefined, {minimumFractionDigits: 2});
-                document.getElementById('rbc-balance').textContent = '$' + data.rbc_balance.toLocaleString(undefined, {minimumFractionDigits: 2});
-                document.getElementById('jimmy-loans').textContent = '$' + Math.abs(data.jimmy_loans).toLocaleString(undefined, {minimumFractionDigits: 2});
-                document.getElementById('anson-loans').textContent = '$' + Math.abs(data.anson_loans || 0).toLocaleString(undefined, {minimumFractionDigits: 2});
-                document.getElementById('update-time').textContent = '更新於: ' + data.last_updated;
+                // Populate P&L
+                document.getElementById('total-revenue').textContent = formatMoney(data.total_revenue);
+                document.getElementById('total-expenses').textContent = formatMoney(data.total_expenses);
+                const netIncomeEl = document.getElementById('net-income');
+                netIncomeEl.textContent = formatMoney(data.net_income);
+                netIncomeEl.className = data.net_income >= 0 ? "font-bold text-lg text-emerald-600" : "font-bold text-lg text-rose-600";
+                
+                // Populate Balance Sheet
+                document.getElementById('rbc-balance').textContent = formatMoney(data.rbc_balance);
+                document.getElementById('gst-recoverable').textContent = formatMoney(data.gst_recoverable);
+                document.getElementById('jimmy-loans').textContent = formatMoney(data.due_to_jimmy);
+                document.getElementById('anson-loans').textContent = formatMoney(data.due_to_anson);
+                
+                document.getElementById('update-time').innerHTML = `<i class="fa-solid fa-clock mr-1"></i>Last Sync: ${data.last_updated}`;
 
+                // Populate Ledger
                 const list = document.getElementById('transaction-list');
                 list.innerHTML = '';
 
                 data.transactions.forEach(tx => {
-                    const div = document.createElement('div');
-                    div.className = 'p-4 flex justify-between items-center';
+                    const tr = document.createElement('tr');
+                    tr.className = "hover:bg-slate-50 transition";
                     
-                    const isPositive = tx.Amount > 0;
+                    const isTransfer = tx.Category === 'Transfer';
+                    const amountClass = isTransfer ? 'text-slate-500' : 'text-slate-900 font-medium';
                     
-                    div.innerHTML = `
-                        <div>
-                            <p class="text-sm font-semibold text-gray-800">${tx.Description}</p>
-                            <p class="text-xs text-gray-400">${tx.Date} · ${tx.Category}</p>
-                        </div>
-                        <div class="text-right">
-                            <p class="text-sm font-bold ${isPositive ? 'text-green-600' : 'text-gray-900'}">
-                                ${isPositive ? '+' : ''}${tx.Amount.toFixed(2)}
-                            </p>
-                        </div>
+                    let badgeColor = "bg-slate-200 text-slate-700";
+                    let paidByText = tx.Paid_By;
+                    if (tx.Paid_By === 'Jimmy_Personal') {
+                        badgeColor = "bg-amber-100 text-amber-800 border border-amber-200";
+                        paidByText = "Jimmy";
+                    } else if (tx.Paid_By === 'Anson_Personal') {
+                        badgeColor = "bg-orange-100 text-orange-800 border border-orange-200";
+                        paidByText = "Anson";
+                    } else if (tx.Paid_By === 'RBC_4207') {
+                        badgeColor = "bg-indigo-100 text-indigo-800 border border-indigo-200";
+                        paidByText = "RBC 4207";
+                    }
+
+                    tr.innerHTML = `
+                        <td class="p-3 text-xs text-slate-400 font-mono">${tx.Txn_ID || '-'}</td>
+                        <td class="p-3 text-slate-600 whitespace-nowrap">${tx.Date}</td>
+                        <td class="p-3 text-slate-800">
+                            <div>${tx.Description}</div>
+                            ${tx.Receipt_Ref ? `<div class="text-[10px] text-blue-500 mt-1"><i class="fa-solid fa-paperclip mr-1"></i>${tx.Receipt_Ref}</div>` : ''}
+                        </td>
+                        <td class="p-3"><span class="px-2 py-1 bg-slate-100 text-slate-600 rounded text-xs">${tx.Category}</span></td>
+                        <td class="p-3 text-right text-slate-500">${formatMoney(tx.Subtotal)}</td>
+                        <td class="p-3 text-right text-slate-500">${formatMoney(tx.GST_HST)}</td>
+                        <td class="p-3 text-right ${amountClass}">${formatMoney(tx.Total)}</td>
+                        <td class="p-3 text-center">
+                            <span class="px-2 py-1 rounded text-[10px] font-bold uppercase ${badgeColor}">
+                                ${paidByText}
+                            </span>
+                        </td>
                     `;
-                    list.appendChild(div);
+                    list.appendChild(tr);
                 });
             } catch (e) {
-                document.getElementById('transaction-list').innerHTML = '<div class="p-8 text-center text-red-400">載入失敗</div>';
+                document.getElementById('transaction-list').innerHTML = '<tr><td colspan="8" class="p-8 text-center text-rose-500"><i class="fa-solid fa-triangle-exclamation mr-2"></i>Failed to load data</td></tr>';
             }
         }
         loadData();
